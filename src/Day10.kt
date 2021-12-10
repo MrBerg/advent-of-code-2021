@@ -1,10 +1,10 @@
 fun main() {
     fun match(left: String, right: String): Boolean {
         return when(left) {
-            "(" -> right.equals(")")
-            "[" -> right.equals("]")
-            "{" -> right.equals("}")
-            "<" -> right.equals(">")
+            "(" -> right == ")"
+            "[" -> right == "]"
+            "{" -> right == "}"
+            "<" -> right == ">"
             else -> false
         }
     }
@@ -19,9 +19,9 @@ fun main() {
     }
 
     fun part1(input: List<String>): Int {
-        var errorSum: Int = 0
+        var errorSum = 0
         for (line in input) {
-            var stack: MutableList<String> = mutableListOf()
+            val stack: MutableList<String> = mutableListOf()
             val splitLine: List<String> = line.split("").filter{ !it.isBlank() }
             for (cha in splitLine) {
                 if ("([{<".contains(cha)) {
@@ -47,12 +47,11 @@ fun main() {
         }
     }
     fun completeRow(stack: List<String>): List<String> {
-        var completion: MutableList<String> = mutableListOf()
-        var mutableStack: MutableList<String> = mutableListOf()
+        val completion: MutableList<String> = mutableListOf()
+        val mutableStack: MutableList<String> = mutableListOf()
         mutableStack.addAll(stack)
-        while (!mutableStack.isEmpty()) {
-            val toMatch = mutableStack.removeAt(mutableStack.size-1)
-            when (toMatch) {
+        while (mutableStack.isNotEmpty()) {
+            when (mutableStack.removeAt(mutableStack.size-1)) {
                 "(" -> completion.add(")")
                 "[" -> completion.add("]")
                 "{" -> completion.add("}")
@@ -62,10 +61,10 @@ fun main() {
         return completion
     }
     fun part2(input: List<String>): Long {
-        var scores: MutableList<Long> = mutableListOf()
+        val scores: MutableList<Long> = mutableListOf()
         for (line in input) {
             var syntaxError = false
-            var stack: MutableList<String> = mutableListOf()
+            val stack: MutableList<String> = mutableListOf()
             val splitLine: List<String> = line.split("").filter{ !it.isBlank() }
             for (cha in splitLine) {
                 if ("([{<".contains(cha)) {
